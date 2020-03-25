@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+	<meta charset="utf-8">
+	<meta name="description" content="Une première page web">
+	<meta name="keywords" content="statistiques">
+	<meta name="author" content="Gusbin Cyril, Dupont Gatien, Paizanos Christos">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.bundle.min.js"></script>
+	<script src="Chart.bundle.min.js"></script>
+	<script src="https://www.chartjs.org/samples/latest/utils.js"></script>
+	<link rel="stylesheet" href="simple.css">
+	<title>stat</title>
+</head>
+<body>
+	<h1>Données actuarielles</h1>
+	<ol type="I">
+		<li><h2>Notes des élèves</h2>
+			<div  style="width : 25%">
+				<canvas id="graphique"></canvas>
+			</div>
+			<script>
+				var ctx= document.getElementById('graphique').getContext('2d');
+				var myChart = new Chart(ctx, {
+				type: 'bar',   // le type du graphique
+				data: {        // les données
+		        labels: ['Jean', 'Martine', 'Michel', 'Jules', 'Louise', 'Dominique'],
+		        datasets: [{
+		                    label: 'Note sur 20',
+		                    data: [12, 19, 3, 5, 2, 3]
+		                   }]
+			       }
+		         }
+			);
+		      </script></li>
+	    <li><h2>Votes par parti</h2>
+	    	<div style="width:25%">
+	      		<canvas id="chart-0"></canvas>
+	      	</div>
+			<script>
+			var DATA_COUNT = 5;
+
+			var utils = Samples.utils;
+
+			utils.srand(110);
+
+			function colorize(opaque, hover, ctx) {
+				var v = ctx.dataset.data[ctx.dataIndex];
+				var c = v < -50 ? '#D60000'
+					: v < 0 ? '#F46300'
+					: v < 50 ? '#0358B6'
+					: '#44DE28';
+
+				var opacity = hover ? 1 - Math.abs(v / 150) - 0.2 : 1 - Math.abs(v / 150);
+
+				return opaque ? c : utils.transparentize(c, opacity);
+			}
+
+			function hoverColorize(ctx) {
+				return colorize(false, true, ctx);
+			}
+
+
+			var data = {
+				datasets: [{
+					data:[10, 20, 30, 40]
+				}],
+				labels: ['cdh', 'écolo', 'c+','ptb']
+			};
+
+			var options = {
+				legend: false,
+				tooltips: false,
+				elements: {
+					arc: {
+						backgroundColor: colorize.bind(null, false, false),
+						hoverBackgroundColor: hoverColorize
+					}
+				}
+			};
+
+			var chart = new Chart('chart-0', {
+				type: 'pie',
+				data: data,
+				options: options
+			});
+			</script></li>	
+	</ol>
+</body>
+</html>
